@@ -173,7 +173,7 @@ function fillAndSearch(title) {
 }
 
 // 填充搜索框，确保豆瓣资源API被选中，然后执行搜索
-function fillAndSearchWithDouban(title) {
+async function fillAndSearchWithDouban(title) {
     if (!title) return;
     
     // 安全处理标题，防止XSS
@@ -212,7 +212,14 @@ function fillAndSearchWithDouban(title) {
     const input = document.getElementById('searchInput');
     if (input) {
         input.value = safeTitle;
-        search(); // 使用已有的search函数执行搜索
+        await search(); // 使用已有的search函数执行搜索
+
+        if (window.innerWidth <= 768) {
+          window.scrollTo({
+              top: 0,
+              behavior: 'smooth'
+          });
+        }
     }
 }
 
@@ -372,30 +379,17 @@ function renderRecommend(tag, pageLimit, pageStart) {
     const container = document.getElementById("douban-results");
     if (!container) return;
 
-    const loadingOverlay = document.createElement("div");
-    loadingOverlay.classList.add(
-        "absolute",
-        "inset-0",
-        "bg-gray-100",
-        "bg-opacity-75",
-        "flex",
-        "items-center",
-        "justify-center",
-        "z-10"
-    );
-
-    const loadingContent = document.createElement("div");
-    loadingContent.innerHTML = `
-      <div class="flex items-center justify-center">
-          <div class="w-6 h-6 border-2 border-pink-500 border-t-transparent rounded-full animate-spin inline-block"></div>
-          <span class="text-pink-500 ml-4">加载中...</span>
-      </div>
+    const loadingOverlayHTML = `
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-10">
+            <div class="flex items-center justify-center">
+                <div class="w-6 h-6 border-2 border-pink-500 border-t-transparent rounded-full animate-spin inline-block"></div>
+                <span class="text-pink-500 ml-4">加载中...</span>
+            </div>
+        </div>
     `;
-    loadingOverlay.appendChild(loadingContent);
 
-    // 冻结原有内容，并添加加载状态
     container.classList.add("relative");
-    container.appendChild(loadingOverlay);
+    container.insertAdjacentHTML('beforeend', loadingOverlayHTML);
     
     const target = `https://movie.douban.com/j/search_subjects?type=${doubanMovieTvCurrentSwitch}&tag=${tag}&sort=recommend&page_limit=${pageLimit}&page_start=${pageStart}`;
     
@@ -516,7 +510,7 @@ function renderDoubanCards(data, container) {
                         <span class="text-yellow-400">★</span> ${safeRate}
                     </div>
                     <div class="absolute bottom-2 right-2 bg-black/70 text-white text-xs px-2 py-1 rounded-sm hover:bg-[#333] transition-colors">
-                        <a href="${item.url}" target="_blank" rel="noopener noreferrer" title="在豆瓣查看">
+                        <a href="${item.url}" target="_blank" rel="noopener noreferrer" title="在豆瓣查看" onclick="event.stopPropagation();">
                             🔗
                         </a>
                     </div>
