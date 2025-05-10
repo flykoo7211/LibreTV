@@ -18,6 +18,23 @@ const toastQueue = [];
 let isShowingToast = false;
 
 function showToast(message, type = 'error') {
+    // 首先确保toast元素存在
+    let toast = document.getElementById('toast');
+    let toastMessage = document.getElementById('toastMessage');
+    
+    // 如果toast元素不存在，创建它
+    if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'toast';
+        toast.className = 'fixed top-4 left-1/2 -translate-x-1/2 px-6 py-3 rounded-lg shadow-lg transform transition-all duration-300 z-50 opacity-0';
+        
+        toastMessage = document.createElement('p');
+        toastMessage.id = 'toastMessage';
+        toast.appendChild(toastMessage);
+        
+        document.body.appendChild(toast);
+    }
+    
     // 将新的toast添加到队列
     toastQueue.push({ message, type });
     
