@@ -34,8 +34,9 @@ jobs:
           exit 0;
         }
 
-    - name: Push changes to your fork
-      uses: ad-m/github-push-action@v0.8.0
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        branch: main
+    - name: Push changes to your fork (force)
+  uses: ad-m/github-push-action@v0.8.0
+  with:
+    github_token: ${{ secrets.GITHUB_TOKEN }}
+    branch: main
+    force: true
