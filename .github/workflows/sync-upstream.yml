@@ -1,13 +1,13 @@
 name: Sync Upstream
 
-permissions:
-  contents: write
-  workflows: write
-
 on:
   schedule:
     - cron: '0 3 * * *'  # 每天凌晨 3 点 UTC 执行一次
   workflow_dispatch:     # 支持手动触发
+
+permissions:
+  contents: write
+  workflows: write
 
 jobs:
   sync:
