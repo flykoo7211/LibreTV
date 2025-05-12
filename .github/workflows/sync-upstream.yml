@@ -1,5 +1,9 @@
 name: Sync Upstream
 
+permissions:
+  contents: write
+  workflows: write
+
 on:
   schedule:
     - cron: '0 3 * * *'  # 每天凌晨 3 点 UTC 执行一次
