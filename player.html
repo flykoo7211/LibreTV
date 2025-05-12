@@ -897,6 +897,14 @@
                     }
                 }
             });
+
+            // 添加双击全屏支持
+            dp.on('playing', () => {
+                // 绑定双击事件到视频容器
+                dp.video.addEventListener('dblclick', () => {
+                    dp.fullScreen.toggle();
+                });
+            });
             
             // 10秒后如果仍在加载，但不立即显示错误
             setTimeout(function() {
