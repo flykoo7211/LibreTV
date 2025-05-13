@@ -21,5 +21,8 @@ jobs:
       - name: 合并上游代码
         run: |
           git checkout main
-          git merge upstream/main --allow-unrelated-histories
+          git merge upstream/main --allow-unrelated-histories || {
+            echo "Merge conflict detected. Please resolve conflicts manually."
+            exit 1
+          }
           git push origin main
