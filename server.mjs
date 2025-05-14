@@ -39,6 +39,21 @@ app.get(['/', '/index.html', '/player.html'], async (req, res) => {
   }
 })
 
+app.get(['/s=:keyword'], async (req, res) => {
+  try {
+    let content;
+    content = fs.readFileSync(path.join(__dirname, 'index.html'), 'utf8');
+    if (password !== '') {
+      const sha256 = await sha256Hash(password);
+      content = content.replace('{{PASSWORD}}', sha256);
+    }
+    res.send(content)
+  } catch (error) {
+    console.error(error)
+    res.status(500).send('读取静态页面失败')
+  }
+})
+
 app.get('/proxy/:encodedUrl', async (req, res) => {
   try {
     // 获取 URL 编码的参数
@@ -109,4 +124,3 @@ app.listen(port, () => {
     console.log('登录密码为：', password);
   }
 });
-
