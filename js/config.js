@@ -101,10 +101,6 @@ const API_SITES = {
         api: 'https://api.wujinapi.me/api.php/provide/vod',
         name: '无尽资源'
     },
-    wwzy: {
-        api: 'https://wwzy.tv/api.php/provide/vod',
-        name: '旺旺短剧'
-    },
     ikun: {
         api: 'https://ikunzyapi.com/api.php/provide/vod',
         name: 'iKun资源'
@@ -117,7 +113,7 @@ const API_SITES = {
         api: 'https://jkunzyapi.com/api.php/provide/vod',
         name: 'jkun资源',
      },
- 茅台资源: {
+    茅台资源: {
         api: 'https://mtzy.me/api.php/provide/vod',
         name: '茅台资源',
      },
