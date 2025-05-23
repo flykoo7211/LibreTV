@@ -698,8 +698,7 @@ function initPlayer(videoUrl) {
         if (loadingElement && loadingElement.style.display !== 'none') {
             loadingElement.innerHTML = `
                 <div class="loading-spinner"></div>
-                <div>视频加载时间较长，请耐心等待...</div>
-                <div style="font-size: 12px; color: #aaa; margin-top: 10px;">如长时间无响应，请尝试其他视频源</div>
+                <div>视频加载时间长，只秋建议更换源...</div>
             `;
         }
     }, 10000);
